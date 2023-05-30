@@ -2,10 +2,12 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 var AutoIncrement = require('mongoose-sequence')(mongoose);
 
+// creación de esquema en base de datos
 const userSchema = new mongoose.Schema({
   _id: {
     type: Number
   },
+  // campos que se envían desde el frontend
   firstName: {
     type: String,
     required: true,
@@ -20,10 +22,6 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   password: {
-    type: String,
-    required: true,
-  },
-  role: {
     type: String,
     required: true,
   }

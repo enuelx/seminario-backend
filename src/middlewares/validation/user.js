@@ -19,13 +19,6 @@ exports.validateUserSignUp = [
     .withMessage('La contraseña se encuentra vacía!')
     .matches(/^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,16}$/)
     .withMessage('Ingrese una contraseña válida. Debe poseer: entre 8 y 16 caracteres alfanuméricos, dos letras mayúsculas,un caracter especial, elegir entre: !@#$&*, tres letras minúsculas, dos números'),
-  check('role')
-    .trim()
-    .not()
-    .isEmpty()
-    .withMessage('El rol (profesor/estudiante) es requerido')
-    .isIn(['teacher', 'student'])
-    .withMessage('El rol del usuario debe estar entre las opciones: "teacher", "student"'),
 ];
 
 exports.userValidation = (req, res, next) => {

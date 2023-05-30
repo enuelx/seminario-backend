@@ -9,7 +9,6 @@ exports.createUser = async (req, res) => {
     lastName,
     email,
     password,
-    role
   } = req.body;
   const isNewUser = await User.isThisEmailInUse(email);
   if (!isNewUser) {
@@ -23,8 +22,7 @@ exports.createUser = async (req, res) => {
     firstName,
     lastName,
     email,
-    password,
-    role
+    password
   });
   await user.save();
   res.json({ success: true, user });
@@ -118,57 +116,58 @@ exports.signOut = async (req, res) => {
   }
 };
 
-// exports.requestPasswordReset = async (req, res) => {
-//   const email = req.params.email;
-//   const user = await User.findOne({ email });
-//   if (!user) {
-//     return res.status(404).json({
-//       success: false,
-//       message: 'No se encuentra el usuario en la base de datos.',
-//     });
-//   }
-//   else {
-//     const token = jwt.sign({ userId: user._id }, process.env.JWT_RESET_SECRET_KEY, {
-//       expiresIn: '1800s',
-//     });
+exports.requestPasswordReset = async (req, res) => {
+  const email = req.params.email;
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: 'No se encuentra el usuario en la base de datos.',
+    });
+  }
+  else {
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_RESET_SECRET_KEY, {
+      expiresIn: '1800s',
+    });
 
-//     const bearerToken = "Bearer " + token
+    const bearerToken = "Bearer " + token
 
-//     let oldTokens = user.tokens || [];
+    let oldTokens = user.tokens || [];
 
-//     if (oldTokens.length) {
-//       oldTokens = oldTokens.filter(t => {
-//         const timeDiff = (Date.now() - parseInt(t.signedAt)) / 1000;
-//         if (timeDiff < 86400) {
-//           return t;
-//         }
-//       });
-//     }
-//     const text="Click aquí para cambiar contraseña: " + process.env.URL_DASHBOARD + "/passwordRecovery/?recoveryToken=" + token
-//     sendMail.send(email, "Solicitud de cambio de contraseña", text)
-//     console.log("e-mail enviado para recuperar password del usuario " + email + ": " + text)
-//     return res.status(200).json({ success: true, message: "Se envía email a " + email + " con link para el cambio de contraseña." });
-//   }
-// };
+    if (oldTokens.length) {
+      oldTokens = oldTokens.filter(t => {
+        const timeDiff = (Date.now() - parseInt(t.signedAt)) / 1000;
+        if (timeDiff < 86400) {
+          return t;
+        }
+      });
+    }
+    //const text="Click aquí para cambiar contraseña: " + process.env.URL_DASHBOARD + "/passwordRecovery/?recoveryToken=" + token
+    //sendMail.send(email, "Solicitud de cambio de contraseña", text)
+    //console.log("e-mail enviado para recuperar password del usuario " + email + ": " + text)
+    //return res.status(200).json({ success: true, message: "Se envía email a " + email + " con link para el cambio de contraseña." });
+    return res.status(200).json({ success: true, message: "Se resetea contraseña de " + email });
+  }
+};
 
-// exports.passwordReset = async (req, res) => {
-//   const { email, newPassword } = req.body;
-//   const _user = await User.findOne({ email });
-//   if (_user.length === 0) {
-//     return res.status(404).json({
-//       success: false,
-//       message: 'No se encuentra el usuario en la base de datos.',
-//     });
-//   }
-//   const newPasswordHash = await bcrypt.hash(newPassword, 8);
-//   const user = await User.findByIdAndUpdate(_user._id, { $set: { "password": newPasswordHash } });
-//   if (user.length === 0) {
-//     return res.status(404).json({
-//       success: false,
-//       message: 'No se pudo modificar la contraseña del usuario ' + user.email,
-//     });
-//   }
-//   else {
-//     return res.status(200).json({ success: true, message: "Contraseña modificada del usuario " + _user.email });
-//   }
-// };
+exports.passwordReset = async (req, res) => {
+  const { email, newPassword } = req.body;
+  const _user = await User.findOne({ email });
+  if (_user.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: 'No se encuentra el usuario en la base de datos.',
+    });
+  }
+  const newPasswordHash = await bcrypt.hash(newPassword, 8);
+  const user = await User.findByIdAndUpdate(_user._id, { $set: { "password": newPasswordHash } });
+  if (user.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: 'No se pudo modificar la contraseña del usuario ' + user.email,
+    });
+  }
+  else {
+    return res.status(200).json({ success: true, message: "Contraseña modificada del usuario " + _user.email });
+  }
+};
