@@ -15,9 +15,15 @@
 - [Uso del backend](#uso-del-backend)
     * [Listado de endpoints](#listado-de-endpoints-de-swagger) 
 
-## Integrantes 
+## Integrantes
+- Alippi, Juan Ignacio
+- Giusti, Juan Manuel
+- Guglielmone, Lucas
+- Jimenez, Johanna
 - Maidana, Emmanuel Carlos Leonel
-
+- Mendieta, Juan Ignacio
+- Tomaz, Juan Jose
+ 
 ## Introducción
 
 Aplicación de ... de la materia Seminario de UADE - Turno Miércoles Noche - 2023.
