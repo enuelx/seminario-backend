@@ -2,7 +2,6 @@
 
 - [Integrantes](#integrantes)
 - [Introducción](#introducción)  
-- [Arquitectura](#arquitectura)
 - [Requisitos](#requisitos) 
 - [Descargar la aplicación e instalar dependencias](#descargar-la-aplicación-e-instalar-dependencias)
 - [Crear archivo de variables de entorno](#crear-archivo-de-variables-de-entorno) 
@@ -26,11 +25,7 @@
  
 ## Introducción
 
-Aplicación de ... de la materia Seminario de UADE - Turno Miércoles Noche - 2023.
-
-## Arquitectura
-
-![img]()
+Aplicación de ExplorApp de la materia Seminario de UADE - Turno Miércoles Noche - 2023.
 
 ## Requisitos
 - [NodeJS](https://nodejs.org/en/download/)
@@ -44,7 +39,7 @@ Esta app corre el backend, para integrarse con el frontend. A continuación se d
 
 ```bash
 git clone git@github.com:enuelx/seminario-backend.git seminario-backend
-cd seminario-backend/src
+cd seminario-backend
 npm install
 ```
 
@@ -81,7 +76,7 @@ docker-compose down
 ## Uso del backend
 Ahora el backend está listo para usar.
 
-Se pueden probar los endpoints a través de [Swagger](https://swagger.io/). La misma se encuentra levantada en la ruta "/api-docs", por ejemplo, si el backend se encuentra en el puerto 3000, la ruta es: http://localhost:3000/api-docs
+Se pueden probar los endpoints a través de [Swagger](https://swagger.io/). La misma se encuentra levantada en la ruta "/api-docs", por ejemplo, si el backend se encuentra en el puerto 3000, la ruta es: http://localhost:4000/api-docs
 
 ### Listado de endpoints de swagger
 ![img]()
