@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const Survey = require('../models/survey');
 const bcrypt = require('bcrypt');
 
 exports.createUser = async (req, res) => {
@@ -37,7 +38,11 @@ exports.getUser = async (req, res) => {
     });
   }
   else {
-    return res.status(200).json({ success: true, user: user });
+    const survey = await Survey.findOne({ email }).select('subjectSurvey');
+    if (!survey) {
+      survey = "No tiene una encuesta enviada."
+    }
+    return res.status(200).json({ success: true, user: user, interests: survey });
   }
 };
 
