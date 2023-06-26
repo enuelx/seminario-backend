@@ -6,7 +6,8 @@
   "proxy": "http://localhost:4000",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "swagger": "node swagger.js"
   },
   "repository": {
     "type": "git",

@@ -5,9 +5,12 @@ const router = express.Router();
 
 const {
     sendSurvey,
+    existSurvey
 } = require('../controllers/survey');
 
-router.post('/sendSurvey', cors(), sendSurvey);
-router.get('/existSurvey', cors(), existSurvey);
+const { isAuth } = require('../middlewares/config/auth');
+
+router.post('/sendSurvey', cors(), isAuth, sendSurvey);
+router.get('/existSurvey/:email', cors(), isAuth, existSurvey);
 
 module.exports = router;

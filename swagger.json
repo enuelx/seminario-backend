@@ -1,290 +1,326 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
     "title": "seminario-api",
     "description": "Aplicación para Seminario 1 - Only in localhost mode",
-    "license": {
-      "name": "ISC"
-    }
+    "version": "1.0.0"
   },
   "host": "localhost:4000",
   "basePath": "/",
-  "tags": [
-    {
-      "name": "Seminario",
-      "description": "API for users in the system"
-    }
-  ],
   "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
+    "http"
   ],
   "paths": {
-    "/signIn": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "description": "Login in backend",
-        "parameters": [
-          {
-            "name": "user",
-            "in": "body",
-            "description": "Login with user registered in backend",
-            "schema": {
-              "$ref": "#/definitions/UserLoginIn"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
+    "/": {
+      "get": {
+        "description": "",
         "responses": {
           "200": {
-            "description": "Login success"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Email unregister"
+            "description": "OK"
           }
         }
       }
     },
-    "/user/{email}": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "description": "Get an user in system",
+    "/sendSurvey": {
+      "post": {
+        "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
-            "required": true,
-            "type": "string",
-            "description": "Bearer Token for authorization"
+            "type": "string"
           },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "subjectSurvey": {
+                  "example": "string"
+                },
+                "ageRangeSurvey": {
+                  "example": "string"
+                },
+                "studyFormatSurvey": {
+                  "example": "string"
+                },
+                "email": {
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "202": {
+            "description": "Accepted"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/existSurvey/{email}": {
+      "get": {
+        "description": "",
+        "parameters": [
           {
             "name": "email",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "User that we want to obtain"
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
           }
-        ],
-        "produces": [
-          "application/json"
         ],
         "responses": {
           "200": {
-            "description": "User exist"
-          },
-          "400": {
-            "description": "Missing a mandatory field"
+            "description": "OK"
           },
           "401": {
             "description": "Unauthorized"
           },
           "404": {
-            "description": "User don't exist"
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/signUp": {
       "post": {
-        "tags": [
-          "Users"
-        ],
-        "description": "Create new user in system",
+        "description": "",
         "parameters": [
           {
-            "name": "user",
+            "name": "body",
             "in": "body",
-            "description": "User that we want to create",
             "schema": {
-              "$ref": "#/definitions/User"
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "string"
+                },
+                "lastName": {
+                  "example": "string"
+                },
+                "email": {
+                  "example": "string"
+                },
+                "password": {
+                  "example": "string"
+                }
+              }
             }
           }
         ],
-        "produces": [
-          "application/json"
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/user/{email}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
-            "description": "New user is created"
+            "description": "OK"
           },
           "400": {
-            "description": "Missing a mandatory field"
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
           },
-          "409": {
-            "description": "Email in use"
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/users": {
       "get": {
-        "tags": [
-          "Users"
-        ],
-        "description": "Get all users in system",
+        "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
-            "required": true,
-            "type": "string",
-            "description": "Bearer Token for authorization"
+            "type": "string"
           }
-        ],
-        "produces": [
-          "application/json"
         ],
         "responses": {
           "200": {
-            "description": "There are users"
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
           },
           "404": {
-            "description": "there are no users in the system"
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/request-reset-password/{email}": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "description": "Request change password",
+    "/signIn": {
+      "post": {
+        "description": "",
         "parameters": [
           {
-            "name": "email",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "User that we want to obtain"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "string"
+                },
+                "password": {
+                  "example": "string"
+                }
+              }
+            }
           }
-        ],
-        "produces": [
-          "application/json"
         ],
         "responses": {
           "200": {
-            "description": "Send email with token"
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
-            "description": "User not found"
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/signOut": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/reset-password": {
       "post": {
-        "tags": [
-          "Users"
-        ],
-        "description": "Create a new class",
+        "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
-            "required": true,
-            "type": "string",
-            "description": "Bearer Token for authorization"
+            "type": "string"
           },
           {
-            "name": "user",
+            "name": "body",
             "in": "body",
-            "description": "Login with user registered in backend",
             "schema": {
-              "$ref": "#/definitions/UserResetPassword"
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "string"
+                },
+                "newPassword": {
+                  "example": "string"
+                }
+              }
             }
           }
         ],
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "200": {
-            "description": "Password reset successfully"
+            "description": "OK"
           },
           "401": {
             "description": "Unauthorized"
           },
           "404": {
-            "description": "User don't exist"
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "UserLoginIn": {
-      "required": [
-        "email",
-        "password"
-      ],
-      "properties": {
-        "email": {
-          "type": "string",
-          "uniqueItems": true
-        },
-        "password": {
-          "type": "string"
-        }
-      }
     },
-    "User": {
-      "required": [
-        "firstName",
-        "lastName",
-        "email",
-        "password"
-      ],
-      "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string",
-          "uniqueItems": true
-        },
-        "password": {
-          "type": "string"
-        }
-      }
-    },
-    "UserResetPassword": {
-      "required": [
-        "email",
-        "newPassword"
-      ],
-      "properties": {
-        "email": {
-          "type": "string",
-          "uniqueItems": true
-        },
-        "newPassword": {
-          "type": "string"
+    "/request-reset-password/{email}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         }
       }
     }

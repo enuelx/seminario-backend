@@ -1,4 +1,5 @@
 const Survey = require('../models/survey');
+const User = require('../models/user');
 
 exports.sendSurvey = async (req, res) => {
     const {
@@ -7,12 +8,20 @@ exports.sendSurvey = async (req, res) => {
         studyFormatSurvey,
         email,
     } = req.body;
-    const exist = await User.findOne({ email }).select('email');
+    const exist = await Survey.findOne({ email }).select('email');
+    const user = await User.findOne({ email }).select('email');
     if (exist) {
         res.status(409)
         return res.json({
             success: false,
             message: 'Este email ya completó una encuesta en la aplicación.',
+        });
+    }
+    else if (!user) {
+        res.status(404)
+        return res.json({
+            success: false,
+            message: 'Este email no se encuentra en la base de datos.',
         });
     }
     else {
@@ -29,7 +38,7 @@ exports.sendSurvey = async (req, res) => {
 
 exports.existSurvey = async (req, res) => {
     const email = req.params.email;
-    const exist = await User.findOne({ email }).select('email');
+    const exist = await Survey.findOne({ email }).select('email');
     if (!exist) {
         return res.status(404).json({
             success: false,
@@ -37,6 +46,6 @@ exports.existSurvey = async (req, res) => {
         });
     }
     else {
-        return res.status(200).json({ success: true, message: 'El email: ' + email + ' posee una encuesta enviada.' });
+        return res.status(200).json({ success: true, message: 'El email ' + email + ' posee una encuesta enviada.' });
     }
 };

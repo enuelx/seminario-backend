@@ -40,9 +40,9 @@ exports.getUser = async (req, res) => {
   else {
     const survey = await Survey.findOne({ email }).select('subjectSurvey');
     if (!survey) {
-      survey = "No tiene una encuesta enviada."
+      return res.status(200).json({ success: true, user: user, interests: "El usuario " + email + " no tiene una encuesta asociada" });
     }
-    return res.status(200).json({ success: true, user: user, interests: survey });
+    return res.status(200).json({ success: true, user: user, interests: survey.subjectSurvey });
   }
 };
 

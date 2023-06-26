@@ -7,22 +7,17 @@ const surveySchema = new mongoose.Schema({
   _id: {
     type: Number
   },
-  subjectSurvey: [
-    {
-      firstSubject: String,
-    },
-    {
-      secondSubject: String,
-    },
-    {
-      thirdSubject: String,
-    }
-  ],
+  subjectSurvey: {
+    type: String,
+    required: true
+  },
   ageRangeSurvey: {
-    type: String
+    type: String,
+    required: true
   },
   studyFormatSurvey: {
-    type: String
+    type: String,
+    required: true
   },
   email: {
     type: String,
