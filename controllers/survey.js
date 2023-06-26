@@ -2,6 +2,16 @@ const Survey = require('../models/survey');
 const User = require('../models/user');
 
 exports.sendSurvey = async (req, res) => {
+    /*  #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                subjectSurvey: "Lengua",
+                ageRangeSurvey: "7 - 8 años",
+                studyFormatSurvey: "Jugando",
+                email: "review@gmail.com"
+            }
+    } */
     const {
         subjectSurvey,
         ageRangeSurvey,
@@ -32,7 +42,7 @@ exports.sendSurvey = async (req, res) => {
             email,
         });
         await survey.save();
-        res.status(202).json({ success: true, survey });
+        res.status(200).json({ success: true, survey });
     }
 };
 

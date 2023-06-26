@@ -4,6 +4,16 @@ const Survey = require('../models/survey');
 const bcrypt = require('bcrypt');
 
 exports.createUser = async (req, res) => {
+    /*  #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                firstName: "Pepe",
+                lastName: "Argento",
+                email: "review@gmail.com",
+                password: ""
+            }
+    } */
   const {
     firstName,
     lastName,
@@ -59,6 +69,14 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.userSignIn = async (req, res) => {
+    /*  #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                email: "review@gmail.com",
+                password: ""
+            }
+    } */
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -151,6 +169,14 @@ exports.requestPasswordReset = async (req, res) => {
 };
 
 exports.passwordReset = async (req, res) => {
+    /*  #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                email: "review@gmail.com",
+                newPassword: "my-new-password"
+            }
+    } */
   const { email, newPassword } = req.body;
   const _user = await User.findOne({ email });
   if (_user.length === 0) {

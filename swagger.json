@@ -33,20 +33,25 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "subjectSurvey": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "Lengua"
                 },
                 "ageRangeSurvey": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "7 - 8 años"
                 },
                 "studyFormatSurvey": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "Jugando"
                 },
                 "email": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "review@gmail.com"
                 }
               }
             }
@@ -56,11 +61,11 @@
           "200": {
             "description": "OK"
           },
-          "202": {
-            "description": "Accepted"
-          },
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "409": {
             "description": "Conflict"
@@ -110,20 +115,25 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "Pepe"
                 },
                 "lastName": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "Argento"
                 },
                 "email": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "review@gmail.com"
                 },
                 "password": {
-                  "example": "string"
+                  "type": "string",
+                  "example": ""
                 }
               }
             }
@@ -213,14 +223,17 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "review@gmail.com"
                 },
                 "password": {
-                  "example": "string"
+                  "type": "string",
+                  "example": ""
                 }
               }
             }
@@ -274,14 +287,17 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "review@gmail.com"
                 },
                 "newPassword": {
-                  "example": "string"
+                  "type": "string",
+                  "example": "my-new-password"
                 }
               }
             }
