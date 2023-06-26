@@ -19,7 +19,8 @@ const {
   validateUserSignUp,
   userValidation,
   validateUserSignIn,
-  validateGetUser
+  validateGetUser,
+  validateNewPassword
 } = require('../middlewares/validation/user');
 
 router.post('/signUp', cors(), validateUserSignUp, userValidation, createUser);
@@ -27,7 +28,7 @@ router.get('/user/:email', cors(), isAuth, validateGetUser, userValidation, getU
 router.get('/users', cors(), isAuth, userValidation, getUsers)
 router.post('/signIn', cors(), userSignIn, validateUserSignIn, userValidation);
 router.post('/signOut', cors(), isAuth, signOut);
-router.post('/reset-password', cors(), isAuthResetPassword, passwordReset)
+router.post('/reset-password', cors(), isAuthResetPassword, validateNewPassword, passwordReset)
 router.get('/request-reset-password/:email', cors(), requestPasswordReset)
 
 module.exports = router;

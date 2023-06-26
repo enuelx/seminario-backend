@@ -26,7 +26,7 @@ exports.userValidation = (req, res, next) => {
   if (!result.length) return next();
 
   const error = result[0].msg;
-  res.status(400).json({ success: false, message: error });
+  res.status(400).json({ success: false, message: "Falta un parametro obligatorio." });
 };
 
 exports.validateUserSignIn = [
@@ -42,7 +42,7 @@ exports.validateGetUser = [
   check('email').trim().isEmail().withMessage('El email no tiene el formato adecuado o se encuentra vacío.')
 ];
 
-exports.validateResetPassword = [
+exports.validateNewPassword = [
   check('password')
     .trim()
     .not()

@@ -4,16 +4,16 @@ const Survey = require('../models/survey');
 const bcrypt = require('bcrypt');
 
 exports.createUser = async (req, res) => {
-    /*  #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {
-                firstName: "Pepe",
-                lastName: "Argento",
-                email: "review@gmail.com",
-                password: ""
-            }
-    } */
+  /*  #swagger.parameters['body'] = {
+          in: 'body',
+          required: true,
+          schema: {
+              firstName: "Pepe",
+              lastName: "Argento",
+              email: "review@gmail.com",
+              password: ""
+          }
+  } */
   const {
     firstName,
     lastName,
@@ -69,14 +69,14 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.userSignIn = async (req, res) => {
-    /*  #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {
-                email: "review@gmail.com",
-                password: ""
-            }
-    } */
+  /*  #swagger.parameters['body'] = {
+          in: 'body',
+          required: true,
+          schema: {
+              email: "review@gmail.com",
+              password: ""
+          }
+  } */
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -90,7 +90,7 @@ exports.userSignIn = async (req, res) => {
 
   const isMatch = await user.comparePassword(password);
   if (!isMatch)
-    return res.json({
+    return res.status(401).json({
       success: false,
       message: 'La contraseña es invalida',
     });
@@ -169,26 +169,26 @@ exports.requestPasswordReset = async (req, res) => {
 };
 
 exports.passwordReset = async (req, res) => {
-    /*  #swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: {
-                email: "review@gmail.com",
-                newPassword: "my-new-password"
-            }
-    } */
-  const { email, newPassword } = req.body;
+  /*  #swagger.parameters['body'] = {
+          in: 'body',
+          required: true,
+          schema: {
+              email: "review@gmail.com",
+              password: "my-new-password"
+          }
+  } */
+  const { email, password } = req.body;
   const _user = await User.findOne({ email });
-  if (_user.length === 0) {
+  if (!_user) {
     return res.status(404).json({
       success: false,
       message: 'No se encuentra el usuario en la base de datos.',
     });
   }
-  const newPasswordHash = await bcrypt.hash(newPassword, 8);
+  const newPasswordHash = await bcrypt.hash(password, 8);
   const user = await User.findByIdAndUpdate(_user._id, { $set: { "password": newPasswordHash } });
-  if (user.length === 0) {
-    return res.status(404).json({
+  if (!user) {
+    return res.status(409).json({
       success: false,
       message: 'No se pudo modificar la contraseña del usuario ' + user.email,
     });
