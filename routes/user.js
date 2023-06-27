@@ -13,7 +13,7 @@ const {
   requestPasswordReset
 } = require('../controllers/user');
 // para que se use con el token despues de loguearse
-const { isAuth, isAuthResetPassword } = require('../middlewares/config/auth');
+const { isAuth } = require('../middlewares/config/auth');
 // validaciones de lógica del contenido de los campos que se envían
 const {
   validateUserSignUp,
@@ -28,7 +28,7 @@ router.get('/user/:email', cors(), isAuth, validateGetUser, userValidation, getU
 router.get('/users', cors(), isAuth, userValidation, getUsers)
 router.post('/signIn', cors(), userSignIn, validateUserSignIn, userValidation);
 router.post('/signOut', cors(), isAuth, signOut);
-router.post('/reset-password', cors(), isAuthResetPassword, validateNewPassword, passwordReset)
+router.post('/reset-password', cors(), validateNewPassword, passwordReset)
 router.get('/request-reset-password/:email', cors(), requestPasswordReset)
 
 module.exports = router;
