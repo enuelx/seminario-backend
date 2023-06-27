@@ -8,7 +8,7 @@ const surveySchema = new mongoose.Schema({
     type: Number
   },
   subjectSurvey: {
-    type: String,
+    type: [String],
     required: true
   },
   ageRangeSurvey: {
@@ -16,7 +16,7 @@ const surveySchema = new mongoose.Schema({
     required: true
   },
   studyFormatSurvey: {
-    type: String,
+    type: [String],
     required: true
   },
   email: {

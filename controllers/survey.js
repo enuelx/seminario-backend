@@ -6,9 +6,9 @@ exports.sendSurvey = async (req, res) => {
             in: 'body',
             required: true,
             schema: {
-                subjectSurvey: "Lengua",
+                subjectSurvey: ["Lengua"],
                 ageRangeSurvey: "7 - 8 años",
-                studyFormatSurvey: "Jugando",
+                studyFormatSurvey: ["Jugando"],
                 email: "review@gmail.com"
             }
     } */
