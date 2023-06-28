@@ -121,7 +121,7 @@ exports.userSignIn = async (req, res) => {
   if (user) {
     const survey = await Survey.findOne({ email }).select('subjectSurvey');
     if (!survey) {
-      return res.status(200).json({ success: true, bearerToken, user: user, interests: "El usuario " + email + " no tiene una encuesta asociada" });
+      return res.status(200).json({ success: true, bearerToken, user: user });
     }
     return res.status(200).json({ success: true, bearerToken, user: user, interests: survey.subjectSurvey });
   }
