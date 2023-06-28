@@ -117,7 +117,14 @@ exports.userSignIn = async (req, res) => {
   });
 
   user.password = undefined;
-  return res.status(200).json({ success: true, bearerToken, user: user });
+
+  if (user) {
+    const survey = await Survey.findOne({ email }).select('subjectSurvey');
+    if (!survey) {
+      return res.status(200).json({ success: true, bearerToken, user: user, interests: "El usuario " + email + " no tiene una encuesta asociada" });
+    }
+    return res.status(200).json({ success: true, bearerToken, user: user, interests: survey.subjectSurvey });
+  }
 };
 
 exports.signOut = async (req, res) => {
